@@ -7,19 +7,25 @@
 //
 
 import UIKit
+import AFNetworking
 
-class TweetsViewController: UIViewController {
+class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     var tweets: [Tweet]?
-
+    
+    @IBOutlet weak var tableView: UITableView!
+    
     override func viewDidLoad() {
-        super.viewDidLoad()
         
+            
+        super.viewDidLoad()
+        tableView.delegate = self
+        tableView.dataSource = self
+    
         TwitterClient.sharedInstance.homeTimelineWithParams(nil, completion: { (tweets, error) -> () in
             self.tweets = tweets
-            
+            self.tableView.reloadData()
             })
-        // Do any additional setup after loading the view.
     }
   
     override func didReceiveMemoryWarning() {
@@ -30,6 +36,30 @@ class TweetsViewController: UIViewController {
     @IBAction func onLogout(sender: AnyObject) {
         User.currentUser?.logout()
     }
+    
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCellWithIdentifier("ActualTweetTableViewCell", forIndexPath: indexPath) as! ActualTweetTableViewCell
+        
+        cell.profilePicture.setImageWithURL(NSURL(string: tweets![indexPath.row].user!.profileImageUrl!)!)
+        cell.userName.text = tweets![indexPath.row].user!.name!
+        cell.twitterName.text = "@" + (tweets![indexPath.row].user?.screenname!)!
+        cell.actualTweet.text = tweets![indexPath.row].text!
+        cell.timeStamp.text = tweets![indexPath.row].createdAtString!
+        
+        
+        return cell
+        
+    }
+
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if let tweets = self.tweets {
+            return tweets.count
+            
+        }
+            return 0
+    }
+    
+    
 
     /*
     // MARK: - Navigation
