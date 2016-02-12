@@ -54,6 +54,7 @@ class TwitterClient: BDBOAuth1SessionManager {
             }) { (error: NSError!) -> Void in
                 print("Failed to get request token")
                 self.loginCompletion?(user: nil, error: error)
+
         }
         
     }

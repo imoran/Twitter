@@ -62,7 +62,8 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("ActualTweetTableViewCell", forIndexPath: indexPath) as! ActualTweetTableViewCell
         
-        cell.profilePicture.setImageWithURL(NSURL(string: tweets![indexPath.row].user!.profileImageUrl!)!)
+        let url = NSURL(string: tweets![indexPath.row].user!.profileImageUrl!);
+        cell.profilePicture.setImageWithURL(url!)
         cell.userName.text = tweets![indexPath.row].user!.name!
         cell.twitterName.text = "@" + (tweets![indexPath.row].user?.screenname!)!
         cell.actualTweet.text = tweets![indexPath.row].text!
