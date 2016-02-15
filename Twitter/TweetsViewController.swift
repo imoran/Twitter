@@ -9,16 +9,16 @@
 import UIKit
 import AFNetworking
 
-class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate {
     
     @IBOutlet weak var tableView: UITableView!
-    
+
     var refreshControl: UIRefreshControl!
     let delay = 3.0 * Double(NSEC_PER_SEC)
     var tweets: [Tweet]?
+    var isMoreDataLoading = false
     
     override func viewDidLoad() {
-
         super.viewDidLoad()
         tableView.delegate = self
         tableView.dataSource = self
@@ -28,7 +28,6 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
         
         refreshControl.addTarget(self, action: "onRefresh", forControlEvents: UIControlEvents.ValueChanged)
         
-    
         TwitterClient.sharedInstance.homeTimelineWithParams(nil, completion: { (tweets, error) -> () in
             self.tweets = tweets
             self.tableView.reloadData()
@@ -59,39 +58,125 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
         User.currentUser?.logout()
     }
     
+    func scrollViewDidScroll(scrollView: UIScrollView) {
+        if (!isMoreDataLoading) {
+            let scrollViewContentHeight = tableView.contentSize.height
+            let scrollOffsetThreshold = scrollViewContentHeight - tableView.bounds.size.height
+            isMoreDataLoading = true
+            
+            if (scrollView.contentOffset.y > scrollOffsetThreshold && tableView.dragging) {
+                isMoreDataLoading = true
+                loadMoreData()
+            }
+            
+        }
+    }
+    
+    func loadMoreData() {
+        func homeTimelineWithParams(params: NSDictionary?, completion: (tweets: [Tweet]?, error: NSError?) -> ()) {
+            TwitterClient.sharedInstance.GET("1.1/statuses/home_timeline.json", parameters: params, success: { (operation: NSURLSessionDataTask!, response: AnyObject?) -> Void in
+            
+                var tweets = Tweet.tweetsWithArray(response as! [NSDictionary])
+                completion(tweets: tweets, error: nil)
+                self.isMoreDataLoading = true
+                
+                }, failure: { (operation: NSURLSessionDataTask?,error: NSError!) -> Void in
+                    print("error getting home timeline")
+                    completion(tweets: nil, error: error)
+                    self.isMoreDataLoading = false
+                    self.tableView.reloadData()
+            })
+        }
+    }
+    
+    class InfiteScrollActivityView: UIView {
+        var activityIndicatorView: UIActivityIndicatorView = UIActivityIndicatorView()
+        static let defaultHeight:CGFloat = 60.0
+        
+        required init?(coder aDecoder: NSCoder) {
+            super.init(coder: aDecoder)
+            setupActivityIndicator()
+        }
+        
+        override init(frame aRect: CGRect) {
+            super.init(frame: aRect)
+            setupActivityIndicator()
+        }
+        
+        override func layoutSubviews() {
+            super.layoutSubviews()
+            activityIndicatorView.center = CGPointMake(self.bounds.size.width/2, self.bounds.size.height/2)
+        }
+        
+        func setupActivityIndicator() {
+            activityIndicatorView.activityIndicatorViewStyle = .Gray
+            activityIndicatorView.hidesWhenStopped = true
+            self.addSubview(activityIndicatorView)
+        }
+        
+        func stopAnimating() {
+            self.activityIndicatorView.stopAnimating()
+            self.hidden = true
+        }
+        
+        func startAnimating() {
+            self.hidden = false
+            self.activityIndicatorView.startAnimating()
+        }
+    }
+    
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("ActualTweetTableViewCell", forIndexPath: indexPath) as! ActualTweetTableViewCell
         
         let url = NSURL(string: tweets![indexPath.row].user!.profileImageUrl!);
         cell.profilePicture.setImageWithURL(url!)
-        cell.userName.text = tweets![indexPath.row].user!.name!
         cell.twitterName.text = "@" + (tweets![indexPath.row].user?.screenname!)!
-        cell.actualTweet.text = tweets![indexPath.row].text!
-        cell.timeStamp.text = tweets![indexPath.row].createdAtString!
         
-        
+        if (tweets != nil) {
+            cell.tweet = tweets![indexPath.row]
+        }
         return cell
-        
     }
 
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+      
         if let tweets = self.tweets {
             return tweets.count
-            
         }
             return 0
     }
     
-    
+    @IBAction func onRetweet(sender: AnyObject) {
+        
+        var subviewPostion: CGPoint = sender.convertPoint(CGPointZero, toView: self.tableView)
+        var indexPath: NSIndexPath = self.tableView.indexPathForRowAtPoint(subviewPostion)!
+        let cell =  self.tableView.cellForRowAtIndexPath(indexPath)! as! ActualTweetTableViewCell
+        let tweet = tweets![indexPath.row]
+        let tweetID = tweet.id
+        TwitterClient.sharedInstance.retweetItem(["id": tweetID!]) { (tweet, error) -> () in
+            
+            if (tweet != nil) {
+                self.tweets![indexPath.row].retweetCount = self.tweets![indexPath.row].retweetCount as! Int + 1
+                var indexPath = NSIndexPath(forRow: indexPath.row, inSection: 0)
+                self.tableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Top)
+            }
+        }
+     }
 
-    /*
-    // MARK: - Navigation
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    @IBAction func onLike(sender: AnyObject) {
+        var subviewPostion: CGPoint = sender.convertPoint(CGPointZero, toView: self.tableView)
+        var indexPath: NSIndexPath = self.tableView.indexPathForRowAtPoint(subviewPostion)!
+        let cell =  self.tableView.cellForRowAtIndexPath(indexPath)! as! ActualTweetTableViewCell
+        let tweet = tweets![indexPath.row]
+        let tweetID = tweet.id
+        TwitterClient.sharedInstance.likeItem(["id": tweetID!]) { (tweet, error) -> () in
+            if (tweet != nil) {
+                self.tweets![indexPath.row].likeCount = self.tweets![indexPath.row].likeCount as! Int + 1
+                var indexPath = NSIndexPath(forRow: indexPath.row, inSection: 0)
+                self.tableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Top)
+                
+            }
+       }
     }
-    */
-
 }

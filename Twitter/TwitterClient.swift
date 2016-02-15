@@ -35,20 +35,17 @@ class TwitterClient: BDBOAuth1SessionManager {
             print("error getting home timeline")
             completion(tweets: nil, error: error)
         })
-        
-        
     }
 
-    
     func loginWithCompletion(completion: (user: User?, error: NSError?) -> ()) {
         loginCompletion = completion
         
         //Fetch request token & redirect to authorization page
-        TwitterClient.sharedInstance.requestSerializer.removeAccessToken()
+    TwitterClient.sharedInstance.requestSerializer.removeAccessToken()
         TwitterClient.sharedInstance.fetchRequestTokenWithPath("oauth/request_token", method: "GET", callbackURL: NSURL(string: "cptwitterdemo://oauth"), scope: nil, success: { (requestToken: BDBOAuth1Credential!) -> Void in
             print("Got the request token")
             
-            var authURL = NSURL(string: "https://api.twitter.com/oauth/authorize?oauth_token=\(requestToken.token)")
+            let authURL = NSURL(string: "https://api.twitter.com/oauth/authorize?oauth_token=\(requestToken.token)")
             UIApplication.sharedApplication().openURL(authURL!)
             
             }) { (error: NSError!) -> Void in
@@ -56,7 +53,28 @@ class TwitterClient: BDBOAuth1SessionManager {
                 self.loginCompletion?(user: nil, error: error)
 
         }
-        
+    }
+    
+    func retweetItem(params: NSDictionary?, completion: (tweet: Tweet?, error: NSError?) -> ()) {
+        POST("1.1/statuses/retweet/\(params!["id"] as! Int).json", parameters: params, success: { (operation: NSURLSessionDataTask!, response: AnyObject?) -> Void in
+            var tweet = Tweet.tweetAsDictionary(response as! NSDictionary)
+            print("retweeted")
+            completion(tweet: tweet, error: nil)
+            }) { (operation: NSURLSessionDataTask?, error: NSError) -> Void in
+
+            completion(tweet: nil, error: error)
+        }
+    }
+    
+    func likeItem(params: NSDictionary?, completion: (tweet: Tweet?, error: NSError?) -> ()) {
+        POST("1.1/favorites/create.json", parameters: params, success: { (operation: NSURLSessionDataTask, response: AnyObject?) -> Void in
+            var tweet = Tweet.tweetAsDictionary(response as! NSDictionary)
+            print("liked tweet")
+            completion(tweet: tweet, error: nil)
+            }) { (operation: NSURLSessionDataTask?, error: NSError) -> Void in
+                completion(tweet: nil, error: error)
+
+        }
     }
     
     func openURL(url: NSURL) {
@@ -83,6 +101,7 @@ class TwitterClient: BDBOAuth1SessionManager {
                 self.loginCompletion?(user: nil, error: error)
 
         }
+        
     }
     
 }
