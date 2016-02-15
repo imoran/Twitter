@@ -41,7 +41,7 @@ GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
 Describe any challenges encountered while building the app.
 <br>
-The hardest thing for me was implementing the increment of both likes and retweets. 
+The hardest thing for me was implementing the increment of both likes and retweets. I'm definitely looking forward to extending the app, as I feel like I have a lot more to do. '
 
 ## License
 
