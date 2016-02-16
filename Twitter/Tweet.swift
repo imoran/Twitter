@@ -2,7 +2,7 @@
 //  Tweet.swift
 //  Twitter
 //
-//  Created by Isis  on 2/8/16.
+//  Created by Isis Moran on 2/8/16.
 //  Copyright © 2016 codepath. All rights reserved.
 //
 
@@ -26,7 +26,6 @@ class Tweet: NSObject {
         let formatter = NSDateFormatter()
         formatter.dateFormat = "HH:mm:ss"
         createdAt = formatter.dateFromString(createdAtString!)
-//        print(createdAt)
         id = dictionary["id"] as? Int
         retweetCount = dictionary["retweet_count"] as? Int
         likeCount = dictionary["favorite_count"] as? Int

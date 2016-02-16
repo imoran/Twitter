@@ -2,7 +2,7 @@
 //  ActualTweetTableViewCell.swift
 //  Twitter
 //
-//  Created by Isis  on 2/9/16.
+//  Created by Isis Moran on 2/9/16.
 //  Copyright © 2016 codepath. All rights reserved.
 //
 
@@ -24,7 +24,7 @@ class ActualTweetTableViewCell: UITableViewCell {
     
     var tweet: Tweet! {
         didSet {
-
+            
             actualTweet.text = tweet.text
             userName.text = tweet.user!.name
             likeLabel.text = "\(tweet.likeCount as! Int)"
@@ -42,6 +42,14 @@ class ActualTweetTableViewCell: UITableViewCell {
     override func setSelected(selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
+    }
+    
+    @IBAction func retweetButtonChange(sender: AnyObject) {
+        retweetButton.setImage(UIImage(named: "RetweetOn"), forState: UIControlState.Normal)
+    }
+    
+    @IBAction func likeButtonChange(sender: AnyObject) {
+         likeButton.setImage(UIImage(named: "LikeOn"), forState: UIControlState.Normal)
     }
 
 }

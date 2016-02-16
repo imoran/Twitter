@@ -122,11 +122,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Twitter/ActualTweetTableViewCell.swift"
-            timestampString = "477217721.663571"
+            timestampString = "477287914.135529"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "47"
-            endingLineNumber = "47"
+            startingLineNumber = "58"
+            endingLineNumber = "58"
             landmarkName = "ActualTweetTableViewCell"
             landmarkType = "3">
          </BreakpointContent>

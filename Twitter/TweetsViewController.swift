@@ -158,13 +158,15 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
             if (tweet != nil) {
                 self.tweets![indexPath.row].retweetCount = self.tweets![indexPath.row].retweetCount as! Int + 1
                 var indexPath = NSIndexPath(forRow: indexPath.row, inSection: 0)
-                self.tableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Top)
+
+                self.tableView.reloadData()
             }
         }
      }
 
 
     @IBAction func onLike(sender: AnyObject) {
+  
         var subviewPostion: CGPoint = sender.convertPoint(CGPointZero, toView: self.tableView)
         var indexPath: NSIndexPath = self.tableView.indexPathForRowAtPoint(subviewPostion)!
         let cell =  self.tableView.cellForRowAtIndexPath(indexPath)! as! ActualTweetTableViewCell
@@ -174,9 +176,9 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
             if (tweet != nil) {
                 self.tweets![indexPath.row].likeCount = self.tweets![indexPath.row].likeCount as! Int + 1
                 var indexPath = NSIndexPath(forRow: indexPath.row, inSection: 0)
-                self.tableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Top)
-                
-            }
+                self.tableView.reloadData()
        }
     }
+        
+  }
 }
