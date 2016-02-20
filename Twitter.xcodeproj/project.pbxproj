@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		635DB54E1C78258A007CD914 /* DetailTweetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635DB54D1C78258A007CD914 /* DetailTweetViewController.swift */; };
 		638481B41C6AB6AC00F738EE /* ActualTweetTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 638481B31C6AB6AC00F738EE /* ActualTweetTableViewCell.swift */; };
 		638B0A081C699A6700878B34 /* TwitterClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 638B0A071C699A6700878B34 /* TwitterClient.swift */; };
 		638B0A0B1C69AB8800878B34 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 638B0A0A1C69AB8800878B34 /* User.swift */; };
@@ -22,6 +23,7 @@
 
 /* Begin PBXFileReference section */
 		457E4752D8CD617A9F6011F3 /* Pods-Twitter.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Twitter.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Twitter/Pods-Twitter.debug.xcconfig"; sourceTree = "<group>"; };
+		635DB54D1C78258A007CD914 /* DetailTweetViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailTweetViewController.swift; sourceTree = "<group>"; };
 		638481B31C6AB6AC00F738EE /* ActualTweetTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActualTweetTableViewCell.swift; sourceTree = "<group>"; };
 		638B0A071C699A6700878B34 /* TwitterClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TwitterClient.swift; sourceTree = "<group>"; };
 		638B0A0A1C69AB8800878B34 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
@@ -102,6 +104,7 @@
 				638B0A061C699A0100878B34 /* API */,
 				63F9FEB31C69992500836CDD /* AppDelegate.swift */,
 				63F9FEB51C69992500836CDD /* ViewController.swift */,
+				635DB54D1C78258A007CD914 /* DetailTweetViewController.swift */,
 				63F9FEB71C69992500836CDD /* Main.storyboard */,
 				63F9FEBA1C69992500836CDD /* Assets.xcassets */,
 				63F9FEBC1C69992500836CDD /* LaunchScreen.storyboard */,
@@ -246,6 +249,7 @@
 				638B0A0F1C69C2BD00878B34 /* TweetsViewController.swift in Sources */,
 				638481B41C6AB6AC00F738EE /* ActualTweetTableViewCell.swift in Sources */,
 				63F9FEB61C69992500836CDD /* ViewController.swift in Sources */,
+				635DB54E1C78258A007CD914 /* DetailTweetViewController.swift in Sources */,
 				638B0A081C699A6700878B34 /* TwitterClient.swift in Sources */,
 				63F9FEB41C69992500836CDD /* AppDelegate.swift in Sources */,
 			);

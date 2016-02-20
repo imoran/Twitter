@@ -8,6 +8,7 @@
 
 import UIKit
 import AFNetworking
+import SwiftMoment
 
 class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate {
     
@@ -22,6 +23,7 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
         super.viewDidLoad()
         tableView.delegate = self
         tableView.dataSource = self
+        
         
         refreshControl = UIRefreshControl()
         tableView.addSubview(refreshControl)
@@ -164,7 +166,6 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
         }
      }
 
-
     @IBAction func onLike(sender: AnyObject) {
   
         var subviewPostion: CGPoint = sender.convertPoint(CGPointZero, toView: self.tableView)
@@ -179,6 +180,16 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
                 self.tableView.reloadData()
        }
     }
-        
   }
+    
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if let cell = sender as? ActualTweetTableViewCell {
+            let indexPath = self.tableView.indexPathForCell(cell)!.row
+            if segue.identifier == "DetailsViewControllerSegue" {
+                let vc = segue.destinationViewController as! DetailTweetViewController
+                vc.detailedTweets = tweets
+            }
+        }
+    }
 }
