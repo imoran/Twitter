@@ -17,13 +17,14 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
     var refreshControl: UIRefreshControl!
     let delay = 3.0 * Double(NSEC_PER_SEC)
     var tweets: [Tweet]?
+    var loadingMoreView: InfiteScrollActivityView?
     var isMoreDataLoading = false
+    var loadMoreOffset = 20
     
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.delegate = self
         tableView.dataSource = self
-        
         
         refreshControl = UIRefreshControl()
         tableView.addSubview(refreshControl)
@@ -125,6 +126,17 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
             self.hidden = false
             self.activityIndicatorView.startAnimating()
         }
+    }
+    
+    func implementInfiniteScroll() {
+//        let frame = CGRectMake(0, tableView.contentSize.height, tableView.bounds.size.width, InfiniteScrollActivityView.defaultHeight)
+//        loadingMoreView = InfiniteScrollActivityView(frame: frame)
+        loadingMoreView!.hidden = true
+        tableView.addSubview(loadingMoreView!)
+        
+        var insets = tableView.contentInset
+        insets.bottom += InfiteScrollActivityView.defaultHeight
+        tableView.contentInset = insets
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
