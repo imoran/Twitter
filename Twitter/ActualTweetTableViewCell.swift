@@ -40,6 +40,8 @@ class ActualTweetTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        profilePicture.layer.cornerRadius = 3
+        profilePicture.clipsToBounds = true
 
     }
     
