@@ -39,7 +39,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="Ben-XJ-ljm"/>
                     <connections>
-                        <segue destination="dqQ-HW-HXo" kind="modal" identifier="loginSegue" id="uiF-nK-HOU"/>
+                        <segue destination="94N-AD-7tu" kind="modal" identifier="loginSegue" id="uiF-nK-HOU"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -140,7 +140,7 @@
                                                         <action selector="onLike:" destination="dqQ-HW-HXo" eventType="touchUpInside" id="BPy-Bn-gGR"/>
                                                     </connections>
                                                 </button>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="252" horizontalCompressionResistancePriority="752" verticalCompressionResistancePriority="756" text="Tweet" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ha8-Nu-5zl">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="252" horizontalCompressionResistancePriority="756" verticalCompressionResistancePriority="756" text="Tweet" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ha8-Nu-5zl">
                                                     <rect key="frame" x="72" y="26" width="244" height="17"/>
                                                     <animations/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -157,6 +157,7 @@
                                             </subviews>
                                             <animations/>
                                             <constraints>
+                                                <constraint firstItem="4pD-lV-ytX" firstAttribute="leading" secondItem="38m-5O-5b7" secondAttribute="trailing" constant="35" id="173-gL-zpx"/>
                                                 <constraint firstItem="UGT-uj-FgI" firstAttribute="leading" secondItem="Oag-KS-4BV" secondAttribute="trailing" constant="8" id="3l0-n0-Wif"/>
                                                 <constraint firstItem="QtK-UM-VUS" firstAttribute="top" secondItem="MaY-AC-LqM" secondAttribute="top" constant="1" id="6RD-EP-0nb"/>
                                                 <constraint firstItem="4pD-lV-ytX" firstAttribute="centerY" secondItem="9x0-e1-SES" secondAttribute="centerY" id="6tv-hP-6eD"/>
@@ -198,7 +199,6 @@
                                             <outlet property="timeStamp" destination="cVh-SR-urV" id="JBk-Zh-hZO"/>
                                             <outlet property="twitterName" destination="QtK-UM-VUS" id="X1z-v9-GLj"/>
                                             <outlet property="userName" destination="UGT-uj-FgI" id="qEW-jT-0aE"/>
-                                            <segue destination="oFH-ei-Y8y" kind="modal" id="Bbl-xL-055"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -219,33 +219,33 @@
                             <constraint firstItem="fOL-qy-vD0" firstAttribute="top" secondItem="IeD-a5-99y" secondAttribute="top" constant="10" id="tew-WH-8hI"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="lV8-Qb-Uke"/>
                     <connections>
                         <outlet property="tableView" destination="k9j-P0-2gg" id="86i-Hl-jGm"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1Nr-1g-GFb" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1668" y="293"/>
+            <point key="canvasLocation" x="2200" y="293"/>
         </scene>
-        <!--Detail Tweet View Controller-->
-        <scene sceneID="b9a-gC-itD">
+        <!--Navigation Controller-->
+        <scene sceneID="fGI-pp-i4l">
             <objects>
-                <viewController id="oFH-ei-Y8y" customClass="DetailTweetViewController" customModule="Twitter" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="1g2-4H-hwO"/>
-                        <viewControllerLayoutGuide type="bottom" id="mFX-Pr-JCB"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="foQ-fc-TrC">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="94N-AD-7tu" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="NVJ-ff-Wpt">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
                         <animations/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                    <navigationItem key="navigationItem" id="ue7-2b-VzN"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="lRV-2J-w5a" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="dqQ-HW-HXo" kind="relationship" relationship="rootViewController" id="Tht-bB-43Z"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="kzi-4E-j8D" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2051" y="293"/>
+            <point key="canvasLocation" x="1668" y="293"/>
         </scene>
     </scenes>
     <resources>

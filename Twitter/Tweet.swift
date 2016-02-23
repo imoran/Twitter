@@ -43,7 +43,7 @@ class Tweet: NSObject {
     }
     
     class func tweetAsDictionary(dict: NSDictionary) -> Tweet {
-        var tweet = Tweet(dictionary: dict)
+        let tweet = Tweet(dictionary: dict)
         return tweet
     }
     

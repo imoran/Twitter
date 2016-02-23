@@ -23,7 +23,6 @@ class ActualTweetTableViewCell: UITableViewCell {
     
     var tweetID: String = ""
 
-    
     var tweet: Tweet! {
         didSet {
             
@@ -42,6 +41,8 @@ class ActualTweetTableViewCell: UITableViewCell {
         super.awakeFromNib()
         profilePicture.layer.cornerRadius = 3
         profilePicture.clipsToBounds = true
+        
+//        retweetButton.addTarget(self, action: "switchValueChanged", forControlEvents: UIControlEvents.ValueChanged)
 
     }
     
@@ -70,5 +71,10 @@ class ActualTweetTableViewCell: UITableViewCell {
     @IBAction func likeButtonChange(sender: AnyObject) {
          likeButton.setImage(UIImage(named: "LikeOn"), forState: UIControlState.Normal)
     }
+    
+    func switchValueChanged() {
+        print("Switch Value Changed")
+    }
+    
 
 }
