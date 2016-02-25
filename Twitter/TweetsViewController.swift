@@ -20,7 +20,8 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
     var loadingMoreView:InfiteScrollActivityView?
     var isMoreDataLoading = false
     var loadMoreOffset = 20
-    
+//    var didRetweet = false
+//    var didLike = false
     
     class InfiteScrollActivityView: UIView {
         var activityIndicatorView: UIActivityIndicatorView = UIActivityIndicatorView()
@@ -84,7 +85,6 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
             self.refreshControl.endRefreshing()
             })
     }
-  
     
     func scrollViewDidScroll(scrollView: UIScrollView) {
         if (!isMoreDataLoading) {
@@ -166,8 +166,12 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
             return 0
     }
     
+//    func unretweet {
+//        
+//    }
+    
     @IBAction func onRetweet(sender: AnyObject) {
-        
+    
         let subviewPostion: CGPoint = sender.convertPoint(CGPointZero, toView: self.tableView)
         let indexPath: NSIndexPath = self.tableView.indexPathForRowAtPoint(subviewPostion)!
         let cell =  self.tableView.cellForRowAtIndexPath(indexPath)! as! ActualTweetTableViewCell
@@ -185,7 +189,6 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
      }
 
     @IBAction func onLike(sender: AnyObject) {
-  
         let subviewPostion: CGPoint = sender.convertPoint(CGPointZero, toView: self.tableView)
         let indexPath: NSIndexPath = self.tableView.indexPathForRowAtPoint(subviewPostion)!
         let cell =  self.tableView.cellForRowAtIndexPath(indexPath)! as! ActualTweetTableViewCell
@@ -194,15 +197,11 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
         TwitterClient.sharedInstance.likeItem(["id": tweetID!]) { (tweet, error) -> () in
             if (tweet != nil) {
                 self.tweets![indexPath.row].likeCount = self.tweets![indexPath.row].likeCount as! Int + 1
-                var indexPath = NSIndexPath(forRow: indexPath.row, inSection: 0)
+                let indexPath = NSIndexPath(forRow: indexPath.row, inSection: 0)
                 self.tableView.reloadData()
        }
     }
   }
-    
-    
-    
-    
     
 //    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
 //        if let cell = sender as? ActualTweetTableViewCell {
