@@ -10,13 +10,26 @@ import UIKit
 
 class DetailTweetViewController: UIViewController {
     
-    var detailedTweets: [Tweet]?
-
+    var detailedTweets: Tweet!
+    
+    @IBOutlet weak var detailedProfilePicture: UIImageView!
+    @IBOutlet weak var detailedUserName: UILabel!
+    @IBOutlet weak var detailedScreenName: UILabel!
+    @IBOutlet weak var detailedTweet: UILabel!
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        
+        detailedProfilePicture.layer.cornerRadius = 3
+        detailedProfilePicture.clipsToBounds = true
+        
+        detailedScreenName.text = "@" + detailedTweets!.user!.screenname!
+        detailedTweet.text = detailedTweets!.text
+        detailedUserName!.text = detailedTweets!.user?.name
+        let url = NSURL(string: (detailedTweets!.user?.profileImageUrl!)!)
+        detailedProfilePicture.setImageWithURL(url!)
+        
+    
     }
 
     override func didReceiveMemoryWarning() {
@@ -24,7 +37,6 @@ class DetailTweetViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-
     /*
     // MARK: - Navigation
 

@@ -20,6 +20,8 @@ class ActualTweetTableViewCell: UITableViewCell {
     @IBOutlet weak var likeLabel: UILabel!
     @IBOutlet weak var retweetButton: UIButton!
     @IBOutlet weak var likeButton: UIButton!
+    var didRetweet: Bool = true
+    var didLike: Bool = true
     
     var tweetID: String = ""
 
@@ -65,16 +67,27 @@ class ActualTweetTableViewCell: UITableViewCell {
     }
     
     @IBAction func retweetButtonChange(sender: AnyObject) {
+      if didRetweet {
+        didRetweet = false
         retweetButton.setImage(UIImage(named: "RetweetOn"), forState: UIControlState.Normal)
+    } else {
+        didRetweet = true
+        retweetButton.setImage(UIImage(named: "Retweet"), forState: UIControlState.Normal)
+      }
     }
     
     @IBAction func likeButtonChange(sender: AnyObject) {
+        if didLike {
+         didLike = false
          likeButton.setImage(UIImage(named: "LikeOn"), forState: UIControlState.Normal)
+        } else {
+            didLike = true
+            likeButton.setImage(UIImage(named: "Like"), forState: UIControlState.Normal)
+        }
     }
     
     func switchValueChanged() {
         print("Switch Value Changed")
     }
     
-
-}
+  }
