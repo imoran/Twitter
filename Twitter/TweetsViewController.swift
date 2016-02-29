@@ -171,10 +171,10 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
     }
     
     @IBAction func onRetweet(sender: AnyObject) {
-     
-         let subviewPostion: CGPoint = sender.convertPoint(CGPointZero, toView: self.tableView)
-         let indexPath: NSIndexPath = self.tableView.indexPathForRowAtPoint(subviewPostion)!
-         let cell =  self.tableView.cellForRowAtIndexPath(indexPath)! as!  ActualTweetTableViewCell
+    
+        let subviewPostion: CGPoint = sender.convertPoint(CGPointZero, toView: self.tableView)
+        let indexPath: NSIndexPath = self.tableView.indexPathForRowAtPoint(subviewPostion)!
+        let cell =  self.tableView.cellForRowAtIndexPath(indexPath)! as!  ActualTweetTableViewCell
         let tweet = tweets![indexPath.row]
         let tweetID = tweet.id
         
@@ -232,6 +232,8 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
                 let tweetsz = tweets![indexPath!.row]
                 let vc = segue.destinationViewController as! DetailTweetViewController
                 vc.detailedTweets = tweetsz
+                let user = User.currentUser
+
 
             }
         }

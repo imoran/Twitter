@@ -20,9 +20,10 @@ class ActualTweetTableViewCell: UITableViewCell {
     @IBOutlet weak var likeLabel: UILabel!
     @IBOutlet weak var retweetButton: UIButton!
     @IBOutlet weak var likeButton: UIButton!
+//    @IBOutlet weak var tweetPicture: UIImageView!
+    
     var didRetweet: Bool = true
     var didLike: Bool = true
-    
     var tweetID: String = ""
 
     var tweet: Tweet! {

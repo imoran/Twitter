@@ -55,6 +55,17 @@ class TwitterClient: BDBOAuth1SessionManager {
         }
     }
     
+    
+    func getProfileInfo (params: NSDictionary?, completion: (tweet: Tweet?, error: NSError?) -> ()) {
+        POST("1.1/users/profile_banner.json", parameters: params, success: {(operation: NSURLSessionDataTask, response: AnyObject?) -> Void in
+            let tweet = Tweet.tweetAsDictionary(response as! NSDictionary)
+            completion(tweet: tweet, error: nil)
+            
+            }) {(operation: NSURLSessionDataTask?, error: NSError) -> Void in
+                completion(tweet: nil, error: error)
+        }
+    }
+    
     func unretweetItem (params: NSDictionary?, completion: (error: NSError?) -> ()) {
         POST("1.1/statuses/unretweet/\(params!["id"] as! Int).json", parameters: params, success: { (operation: NSURLSessionDataTask!, response: AnyObject?) -> Void in
             completion(error: nil)
@@ -82,7 +93,6 @@ class TwitterClient: BDBOAuth1SessionManager {
             completion(tweet: tweet, error: nil)
             }) { (operation: NSURLSessionDataTask?, error: NSError) -> Void in
                 completion(tweet: nil, error: error)
-
         }
     }
     
