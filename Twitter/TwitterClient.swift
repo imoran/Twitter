@@ -66,15 +66,6 @@ class TwitterClient: BDBOAuth1SessionManager {
         }
     }
     
-    func unretweetItem (params: NSDictionary?, completion: (error: NSError?) -> ()) {
-        POST("1.1/statuses/unretweet/\(params!["id"] as! Int).json", parameters: params, success: { (operation: NSURLSessionDataTask!, response: AnyObject?) -> Void in
-            completion(error: nil)
-            }, failure: {(operation: NSURLSessionDataTask?, error: NSError!) -> Void in
-                completion(error: error)
-        })
-        
-    }
-    
     func retweetItem (params: NSDictionary?, completion: (tweet: Tweet?, error: NSError?) -> ()) {
         POST("1.1/statuses/retweet/\(params!["id"] as! Int).json", parameters: params, success: { (operation: NSURLSessionDataTask!, response: AnyObject?) -> Void in
             let tweet = Tweet.tweetAsDictionary(response as! NSDictionary)
@@ -92,6 +83,21 @@ class TwitterClient: BDBOAuth1SessionManager {
             print("liked tweet")
             completion(tweet: tweet, error: nil)
             }) { (operation: NSURLSessionDataTask?, error: NSError) -> Void in
+                completion(tweet: nil, error: error)
+        }
+    }
+    
+    func tweetContent(tweet: String, replyID: Int?, completion: (tweet: Tweet?, error: NSError?) -> ()) {
+        
+       var params = ["status": tweet]
+        if replyID != nil {
+            params["in_reply_to_status_id"] = String(replyID)
+            
+        }
+        POST("1.1/statuses/update.json", parameters: params, success: {(operation: NSURLSessionDataTask, response: AnyObject?) -> Void in
+            let tweet = Tweet(dictionary: response as! NSDictionary)
+            completion(tweet: tweet, error: nil)
+            }) {(operation: NSURLSessionDataTask?, error: NSError) -> Void in
                 completion(tweet: nil, error: error)
         }
     }

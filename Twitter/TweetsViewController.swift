@@ -23,9 +23,11 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
     var loadMoreOffset = 20
     var didRetweet: Bool = true
     var didLike: Bool = true
+   
     
     class InfiteScrollActivityView: UIView {
         var activityIndicatorView: UIActivityIndicatorView = UIActivityIndicatorView()
+
         static let defaultHeight:CGFloat = 60.0
         
         required init?(coder aDecoder: NSCoder) {
@@ -84,11 +86,11 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
         
         refreshControl.addTarget(self, action: "onRefresh", forControlEvents: UIControlEvents.ValueChanged)
         
-        TwitterClient.sharedInstance.homeTimelineWithParams(nil, completion: { (tweets, error) -> () in
+        TwitterClient.sharedInstance.homeTimelineWithParams(nil) { (tweets, error) -> () in
             self.tweets = tweets
             self.tableView.reloadData()
-            self.refreshControl.endRefreshing()
-            })
+            }
+        self.refreshControl.endRefreshing()
     }
     
     func scrollViewDidScroll(scrollView: UIScrollView) {
@@ -233,8 +235,11 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
                 let vc = segue.destinationViewController as! DetailTweetViewController
                 vc.detailedTweets = tweetsz
                 let user = User.currentUser
+            } else if segue.identifier == "composeSegue" {
+                let user = User.currentUser
+                let compose = segue.destinationViewController as! ComposeViewController
+                compose.comTweet = tweetsz
+              }
 
-
-            }
+           }
         }
-    }

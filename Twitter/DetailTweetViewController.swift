@@ -49,12 +49,11 @@ class DetailTweetViewController: UIViewController {
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "detailstoProfileSegue" {
+            
           let vcdetails = segue.destinationViewController as! ProfileViewController
            vcdetails.profileTweets = detailedTweets
            let user = User.currentUser
-           
         
-        }
     }
     
     /*
@@ -68,4 +67,5 @@ class DetailTweetViewController: UIViewController {
     */
 
 
+  }
 }

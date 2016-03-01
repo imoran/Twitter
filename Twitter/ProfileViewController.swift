@@ -21,10 +21,11 @@ class ProfileViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.profileViewName.text = User.currentUser!.name
-        self.profileViewHandle.text = User.currentUser!.screenname
-//        profileInfo()
-
+        self.profileViewName.text = profileTweets!
+            .user!.name
+        self.profileViewHandle.text = profileTweets!.user!.screenname
+        profileFollowerCounttt.text = profileTweets!.user!.followers!
+        profileFollowingCount.text = profileTweets!.user!.following!
         
     }
 //    
