@@ -27,6 +27,7 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     class InfiteScrollActivityView: UIView {
         var activityIndicatorView: UIActivityIndicatorView = UIActivityIndicatorView()
+        
 
         static let defaultHeight:CGFloat = 60.0
         
@@ -197,20 +198,6 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
         }
     }
     
-//            if (tweet != nil) {
-//                
-//                if self.didRetweet {
-//                 self.didRetweet = true
-//                 self.tweets![indexPath.row].retweetCount = self.tweets![indexPath.row].retweetCount as! Int + 1
-//                 var indexPath = NSIndexPath(forRow: indexPath.row, inSection: 0)
-//                    self.tableView.reloadData()
-//
-//                } else {
-//                    self.didRetweet = false
-//                    self.tweets![indexPath.row].retweetCount = self.tweets![indexPath.row].retweetCount as! Int - 1
-//                    self.tableView.reloadData()
-//
-//                }
             
     @IBAction func onLike(sender: AnyObject) {
         let subviewPostion: CGPoint = sender.convertPoint(CGPointZero, toView: self.tableView)
@@ -236,7 +223,6 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
                 vc.detailedTweets = tweetsz
                 let user = User.currentUser
             } else if segue.identifier == "composeSegue" {
-                let user = User.currentUser
                 let compose = segue.destinationViewController as! ComposeViewController
                 compose.comTweet = tweetsz
               }

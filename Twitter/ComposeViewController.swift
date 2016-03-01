@@ -11,9 +11,7 @@ import UIKit
 class ComposeViewController: UIViewController, UITextViewDelegate {
     
     
-    @IBOutlet weak var composePicture: UIImageView!
-    @IBOutlet weak var composeUserName: UILabel!
-    @IBOutlet weak var composeScreename: UILabel!
+
     @IBOutlet weak var composeTweet: UITextView!
     
     var comTweet: Tweet?
@@ -22,18 +20,10 @@ class ComposeViewController: UIViewController, UITextViewDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-//        composeTweet.becomeFirstResponder()
-        
 
         
-//        composeTweet.delegate = self
-//        
-//    composeUserName.text = comTweet!.user!.name
-//        composeScreename.text = comTweet!.user!.screenname!
-        
+        composeTweet.delegate = self
 
-        // Do any additional setup after loading the view.
     }
 
     override func didReceiveMemoryWarning() {
@@ -44,7 +34,6 @@ class ComposeViewController: UIViewController, UITextViewDelegate {
     @IBAction func onTweet(sender: AnyObject) {
         TwitterClient.sharedInstance.tweetContent(composeTweet.text, replyID: replyID, completion: {(success, error) -> () in
             if success != nil {
-                self.dismissViewControllerAnimated(true, completion: nil)
 
             }
        })

@@ -23,21 +23,14 @@ class ProfileViewController: UIViewController {
         super.viewDidLoad()
         self.profileViewName.text = profileTweets!
             .user!.name
-        self.profileViewHandle.text = profileTweets!.user!.screenname
-        profileFollowerCounttt.text = profileTweets!.user!.followers!
-        profileFollowingCount.text = profileTweets!.user!.following!
+        self.profileViewHandle.text = "@" + profileTweets!.user!.screenname!
+        profileFollowerCounttt.text = String(profileTweets!.user!.followers)
+        profileFollowingCount.text = String(profileTweets!.user!.following)
+        let url = NSURL(string: (profileTweets!.user?.profileImageUrl!)!)
+        theProfilePicture.setImageWithURL(url!)
+        bannerPicture.setImageWithURL(profileTweets!.user!.profileBannerURL!)
         
     }
-//    
-//    func profileInfo() {
-//      TwitterClient.sharedInstance.getProfileInfo(["id": profileTweets.id!]) { (tweet, error) -> () in
-//    
-//      self.profileViewName.text = User.currentUser!.name
-//      self.profileViewHandle.text = User.currentUser!.screenname
-//      self.theProfilePicture.setImageWithURL(NSURL(string: self.profileTweets!.user!.profileImageUrl!)!)
-//        
-//       }
-//    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

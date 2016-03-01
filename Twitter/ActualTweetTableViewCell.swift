@@ -30,6 +30,7 @@ class ActualTweetTableViewCell: UITableViewCell {
         didSet {
             
             actualTweet.text = tweet.text
+            actualTweet.sizeToFit()
             userName.text = tweet.user!.name
             likeLabel.text = "\(tweet.likeCount as! Int)"
             retweetLabel.text = "\(tweet.retweetCount as! Int)"

@@ -18,15 +18,18 @@ class DetailTweetViewController: UIViewController {
     @IBOutlet weak var detailedTweet: UILabel!
     @IBOutlet weak var detailedRetweets: UILabel!
     @IBOutlet weak var detailedFavorites: UILabel!
-    @IBOutlet weak var detailedTimeStamp: UILabel!
+    @IBOutlet weak var detailedRetweetButton: UIButton!
+    @IBOutlet weak var detailedLikeButton: UIButton!
+    @IBOutlet weak var detailedRetweetCount: UILabel!
+    @IBOutlet weak var detailedLikeCount: UILabel!
+  
     
     var tweetID: String = ""
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-//        tweetID = detailedTweets!.id as String
+        detailedTweet.sizeToFit()
         
         detailedProfilePicture.layer.cornerRadius = 3
         detailedProfilePicture.clipsToBounds = true
@@ -46,6 +49,24 @@ class DetailTweetViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+    @IBAction func detailedRetweet(sender: AnyObject) {
+        TwitterClient.sharedInstance.retweetItem(["id": detailedTweets.id!]) {(tweet, error) -> () in
+            self.detailedTweets!.retweetCount! = self.detailedTweets!.retweetCount as! Int + 1
+            self.detailedRetweetCount.text = "\(self.detailedTweets.retweetCount as! Int)"
+            self.detailedRetweetButton.setImage(UIImage(named: "RetweetOn"), forState: UIControlState.Normal)
+       }
+    }
+    
+    @IBAction func detailedLike(sender: AnyObject) {
+        TwitterClient.sharedInstance.likeItem(["id": detailedTweets.id!]) {(tweet, error) -> () in
+            self.detailedTweets!.likeCount! = self.detailedTweets!.likeCount as! Int + 1
+            self.detailedLikeCount.text = "\(self.detailedTweets.likeCount as! Int)"
+            self.detailedLikeButton.setImage(UIImage(named: "LikeOn"), forState: UIControlState.Normal)
+            
+        }
+    }
+    
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "detailstoProfileSegue" {
@@ -68,4 +89,4 @@ class DetailTweetViewController: UIViewController {
 
 
   }
-}
+}   
