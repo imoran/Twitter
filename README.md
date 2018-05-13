@@ -1,6 +1,6 @@
 # Project 4 - "Twitter"
 
-"Twitter" is a basic twitter app to read and compose tweets the [Twitter API](https://apps.twitter.com/).
+"Twitter" is a basic twitter app that allows users to read and compose tweets. Uses the [Twitter API](https://apps.twitter.com/).
 
 Time spent: 23 hours spent in total
 
@@ -39,8 +39,6 @@ GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
 ## Notes
 
-Describe any challenges encountered while building the app.
-<br>
 The hardest thing for me was implementing the increment of both likes and retweets. I'm definitely looking forward to extending the app, as I feel like I have a lot more to do. Autolayout has been a challenge as well.
 
 ## License
@@ -108,7 +106,6 @@ GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
 ## Notes
 
-Describe any challenges encountered while building the app. 
 Communicating with the Twitter API was very challenging..
 
 ## License
